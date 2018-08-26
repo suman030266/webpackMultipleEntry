@@ -1,0 +1,153 @@
+@import "_config.scss";
+@import "_app.scss";
+@import "_reset.scss";
+
+body {
+    color: $base;
+    background: $bg;
+}
+.clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{zoom:1;}
+
+//input::-webkit-input-placeholder,
+//input:-moz-placeholder,
+//input::-moz-placeholder,
+//input:-ms-input-placeholder{
+//  color: #f00!important;
+//}
+
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.show{
+    display: block!important;
+}
+.hide{
+    display: none!important;
+}
+
+input::-webkit-input-placeholder{
+    color: #999!important;
+}
+input:-moz-placeholder{
+    color: #999!important;
+}
+input::-moz-placeholder{
+    color: #999!important;
+}
+input:-ms-input-placeholder {
+    color: #999!important;
+} 
+
+//icon图标
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../../../fonts/icomoon.eot');
+  src:  url('../../../fonts/icomoon.eot') format('embedded-opentype'),
+    url('../../../fonts/icomoon.ttf') format('truetype'),
+    url('../../../fonts/icomoon.woff') format('woff'),
+    url('../../../fonts/icomoon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: -1px;
+}
+
+
+.icon-1:before {
+  content: "\e906";
+}
+.icon-2:before {
+  content: "\e913";
+}
+.icon-3:before {
+  content: "\e900";
+}
+.icon-4:before {
+  content: "\e903";
+}
+.icon-5:before {
+  content: "\e905";
+}
+.icon-6:before {
+  content: "\e912";
+}
+.icon-7:before {
+  content: "\e904";
+}
+.icon-8:before {
+  content: "\e909";
+}
+.icon-9:before {
+  content: "\e90a";
+}
+.icon-10:before {
+  content: "\e90b";
+}
+.icon-11:before {
+  content: "\e90c";
+}
+.icon-12:before {
+  content: "\e90d";
+}
+.icon-13:before {
+  content: "\e90e";
+}
+.icon-14:before {
+  content: "\e90f";
+}
+.icon-15:before {
+  content: "\e910";
+}
+.icon-16:before {
+  content: "\e911";
+}
+.icon-17:before {
+  content: "\e901";
+}
+.icon-18:before {
+  content: "\e902";
+}
+.icon-19:before {
+  content: "\e907";
+}
+.icon-20:before {
+  content: "\e908";
+}
+.icon-20:before{
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    from {
+        transform:rotate(0);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+.icon-21:before {
+  content: "\e915";
+}
+.icon-22:before {
+  content: "\e914";
+}
+.icon-23:before {
+  content: "\e916";
+}

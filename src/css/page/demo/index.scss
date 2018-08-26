@@ -1,0 +1,11 @@
+/* demo */
+@import '../../utils/base.scss';
+@import '../../utils/share-bottom.scss';
+@import '../../utils/toast.scss';
+@import '../../utils/dialog.scss';
+#app{
+    width:500px;
+    margin:30px auto;
+    border:1px solid #CCC;
+    padding:20px;
+}

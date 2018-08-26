@@ -1,0 +1,72 @@
+.m-share-bottom {
+	background-color: #fff;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0%;
+	z-index: 1000;
+	font-size: 0.28rem;
+	.share-list {
+	    display: block;
+	    padding-top: 0.42rem;
+	    overflow: hidden;
+	} 
+	.item {
+	    width: 20%;
+	    float: left;
+	    text-align: center;
+    }
+    .share-icon {
+	    width: 0.98rem;
+	    height: 0.99rem;
+	    display: inline-block;
+	    overflow: hidden;
+	   	background: url("../../../images/public/share.png") no-repeat -99rem -99rem;
+	    background-size: 0.97rem 5.26rem; 
+	}
+	.weibo .share-icon {
+	    	background-position: 0 0; 
+	}
+	    .weixin .share-icon {
+	    	background-position: 0rem -1.06rem; 
+	}
+	    .friends .share-icon {
+	    	background-position: 0rem -2.14rem; 
+	}
+	    .qq .share-icon {
+	    	background-position: 0rem -3.2rem; 
+	}
+	.qzone .share-icon {
+	    	background-position: 0rem -4.28rem; 
+	    }
+	    .share-txt {
+	    	padding-top: 0.3rem;
+	    	padding-bottom: 0.4rem; 
+	}
+	    .share-close {
+	    	height: 1rem;
+	    	line-height: 1rem;
+	    	display: block;
+	    	text-align: center;
+	    	border-top: 1px solid #E4E4E4; 
+	}
+}
+.m-mask-private {
+	background-color: rgba(0, 0, 0, 0.4);
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 100; 
+}
+.m-share-top {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1010;
+	background: rgba(0, 0, 0, 0.7) url("../../../images/public/sharepop.png") no-repeat 0 0;
+	background-size: 100% auto; 
+}

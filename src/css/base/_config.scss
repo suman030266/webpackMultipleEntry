@@ -1,0 +1,43 @@
+//based
+//Arhtor: sunguang
+
+//
+
+
+//全局颜色变量
+$base:#111;           //默认颜色
+$gray:#999;           //默认灰色
+$white:#fff;          //默认白色
+$primary:#53a6f8;     //状态主色，默认色
+$success:#13ce00;     //成功色
+$info:#333;           //提示色
+$warning:#e93030;     //报警，错误色
+$danger:#333;         //警告色
+
+$bg:#f0f0f0;          //默认背景色
+$border:#e1e1e1;      //默认边框颜色
+
+$link:$base;          //链接颜色
+$link-hover:$primary; //滑过颜色
+$link-visited:#f00;   //点击过颜色
+$disabled-color: #999; //禁用的文本色
+$disabled-bg: #f9f9f9; // 禁用的背景色
+
+$btn-hover: #75b8f9;
+
+// 审核相关颜色
+$auditing:#ff7a0d; //审核中，审核失败，再次审核
+$audit-succeed:#55c40d; //审核成功
+$audit-errormsg:#e93030;// 审核失败提示
+$option-hover:#3e9bf7;//修改,删除，更改悬停
+
+
+$success-color:#333;
+$success-color:#333;
+$success-color:#333;
+$success-color:#333;
+$success-color:#333;
+
+
+
+

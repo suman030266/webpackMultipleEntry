@@ -1,0 +1,53 @@
+.m-toast,.m-toast-logo{
+	font-size: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 110;
+	padding: 0.2rem 0.3rem;
+	text-align: center;
+	border-radius: 0.2rem;
+	transform: translate(-50%, -50%);
+	width: 3.8rem;
+  	min-height: 0.7rem;
+  	background-color: rgba(0, 0, 0, 0.8);
+  	
+}
+.m-toast{
+	&:before {
+	    content: "";
+	    display: inline-block;
+	    vertical-align: middle;
+	    height: 0.7rem; 
+	}
+	.t-txt {
+	    display: inline-block;
+	    vertical-align: middle;
+	    color: #fff;
+	    font-size: 0.3rem;
+	    line-height: 1.2; 
+	}
+}
+.m-toast-logo {
+	width: 2rem;
+    height: 2rem;
+    background-color: rgba(255,255,255,0.85);
+    border: 1px solid #ddd;
+    padding-top: 0.4rem;
+    box-sizing: border-box;
+	.t-txt {
+		display: none;
+		color: #666;
+		font-size: 0.24rem;
+		line-height: 1.2;
+		margin-top: 0.24rem; 
+	}
+	.t-logo {
+		width: 1.2rem;
+		height: 1.2rem;
+		margin: 0 auto;
+		background: url('../../../images/public/toast-load.gif') no-repeat;
+		background-size: cover; 
+
+	}
+}
