@@ -22,4 +22,5 @@ local.properties
 .project
 temp/
 html/
+dist/
 /view/html

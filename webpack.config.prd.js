@@ -1,42 +1,44 @@
-const fs = require('fs'),
-	path = require('path'),
-	webpack = require('webpack'),
-	ExtractTextPlugin = require('extract-text-webpack-plugin'),
-	NyanProgressPlugin = require('nyan-progress-webpack-plugin'),
-	FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
-	CleanWebpackPlugin = require('clean-webpack-plugin'),
-	OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
-	UginfiyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
-// const HashMapPlugin = require('./plugin/hash-map.js');
+// 引入模块
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HashMapPlugin = require('./plugin/hash-map.js');
 
 // paths.js 简化路径
 const join = path.join;
-// const contentBase = process.cwd();
-const contentBase = __dirname,
-	src = join(contentBase, 'src'),
-	paths = {
-		base: contentBase,
-		src,
-		dist: join(contentBase, 'dist'),
-		view: join(contentBase, 'view'),
-		js: join(src, 'js'),
-		page: join(src, 'js/page'),
-		common: join(src, 'common'),
-		components: join(src, 'components'),
-		css: join(src, 'css'),
-		io: join(src, 'io'),
-		mods: join(src, 'mods'),
-		widgets: join(src, 'widgets'),
-		util: join(src, 'util'),
-		vendor: join(src, 'vendor'),
-		plugin: join(src, 'plugin')
-	};
+const contentBase = __dirname;
+const src = join(contentBase, 'src');
+const paths = {
+	base: contentBase,
+	src,
+	dist: join(contentBase, 'dist'),
+	view: join(contentBase, 'view'),
+	js: join(src, 'js'),
+	page: join(src, 'js/page'),
+	common: join(src, 'common'),
+	components: join(src, 'components'),
+	css: join(src, 'css'),
+	io: join(src, 'io'),
+	mods: join(src, 'mods'),
+	widgets: join(src, 'widgets'),
+	util: join(src, 'util'),
+	vendor: join(src, 'vendor'),
+	plugin: join(src, 'plugin')
+};
 
 // entry
-const {base,dist,view,js,page,common,components,css,io,mods,widgets,util,vendor,plugin} = paths;
-let entry = { vendor: ['vue'] },
-	pages = fs.readdirSync(page);
-pages.forEach((dir, index, arr)=>{
+const {page, dist} = paths;
+console.log(page);
+console.log(fs.readdirSync(page));
+let entry = { vendor: ['vue'] };
+let pages = fs.readdirSync(page);
+pages.forEach(function(dir, index, arr) {
 	if (dir.indexOf('.') !== 0) { // 过滤隐藏文件
 		entry[dir] = path.join(page, dir, 'index.js');
 	}
@@ -62,21 +64,22 @@ let config={
     output: {
 		path: dist,
 		filename: 'js/[name].js',
+		// filename: 'js/[name]-[chunkhash:7].js',
 		publicPath: cdn[env]   // '//js.pre.meixincdn.com/m/m/dist/'
     },
     resolve: {
 		extensions: [' ', '.js', '.vue'],
 		alias: {
-			css,  // '~gome/projectsInGitHub/FEENDProject/src/css'
-			io,
-			common,
-			components,
-			widgets,
-			plugin,
-			util,
-			dist,
-			mods,
-			vue: 'vue/dist/vue.js'
+			'css': paths.css,  // '~gome/projectsInGitHub/FEENDProject/src/css'
+			'io': paths.io,
+			'common': paths.common,
+			'components': paths.components,
+			'widgets': paths.widgets,
+			'plugin': paths.plugin,
+			'util': paths.util,
+			'dist':paths.dist,
+			'mods':paths.mods,
+			'vue': 'vue/dist/vue.js'
 		}
     },
     module: {
@@ -85,7 +88,7 @@ let config={
 				test: /\.js$/,
 				loader: 'eslint-loader',
 				enforce: "pre",
-				include: [js],  // src下面的js文件
+				include: [paths.js],  // src下面的js文件
 				options: {
 					formatter: require('eslint-friendly-formatter')
 				}
@@ -93,12 +96,12 @@ let config={
 			{
 				test: /\.js$/,
 				loader: 'babel-loader',
-				include: [js]
+				include: [paths.js]
 			},
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
-				include: [js],  // src下面的js文件
+				include: [paths.js],  // src下面的js文件
 				options:{
 					loaders: {
 						css: ExtractTextPlugin.extract({
@@ -110,7 +113,7 @@ let config={
 			},
 			{
 				test: /\.scss$/,
-				include: [css],
+				include: [paths.css],
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [
@@ -157,47 +160,10 @@ let config={
 				}
 			}
 		]
-	}
-};
-if(env === 'prd'){
-	config.output.filename = 'js/[name]-[chunkhash:7].js';
-	config.plugins = [
-		new CleanWebpackPlugin([ dist ]),
-		new webpack.HashedModuleIdsPlugin(),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor',
-			filename: 'js/vendor-[chunkhash:7].js',
-			minChunks: Infinity
-		}),
-		new webpack.DefinePlugin({
-		  	'process.env': {
-		    	NODE_ENV: JSON.stringify((env==='production'||env==='huidu')?env:'pre')
-		  	}
-		}),
-		// 压缩 js
-		new UginfiyjsWebpackPlugin(),
-		// 压缩 css
-		new OptimizeCssAssetsPlugin({
-			assetNameRegExp: /\.css$/g,
-			cssProcessor: require('cssnano'),
-			// cssProcessorOptions: { discardComments: { removeAll: true },autoprefixer: { remove: false } },
-			cssProcessorOptions: { discardComments: { removeAll: true }},
-			canPrint: false
-		}),
-		// 抽离 css 到单独文件
-		new ExtractTextPlugin({
-			filename: 'css/[name]-[contenthash:7].css'
-		}),
-		// 生成 hash map
-		// new HashMapPlugin({
-		// 	path: path.join(__dirname, '../hash-map'), // map 文件夹路径
-		// 	rotate: 10 // 保留版本记录数
-		// })
-	];
-}else if(env === 'watchBuild' || env === 'prd'){
-	config.devtool = 'source-map';
-	config.plugins = [
-		new CleanWebpackPlugin([ dist ]),
+	},
+	plugins: [
+        // 清除dist目录文件
+        new CleanWebpackPlugin([ dist ]),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			filename: 'js/vendor.js',
@@ -212,8 +178,47 @@ if(env === 'prd'){
 		new FriendlyErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'css/[name].css'
+		}),
+		// build
+		/*
+		new webpack.HashedModuleIdsPlugin(),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			filename: 'js/vendor-[chunkhash:7].js',
+			minChunks: Infinity
+		}),
+		new webpack.DefinePlugin({
+		  	'process.env': {
+		    	NODE_ENV: JSON.stringify((env==='production'||env==='huidu')?env:'pre')
+		  	}
+		}),
+		// 压缩 js
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
+		}),
+		// 压缩 css
+		new OptimizeCssAssetsPlugin({
+			assetNameRegExp: /\.css$/g,
+			cssProcessor: require('cssnano'),
+			// cssProcessorOptions: { discardComments: { removeAll: true },autoprefixer: { remove: false } },
+			cssProcessorOptions: { discardComments: { removeAll: true }},
+			canPrint: false
+		}),
+		// 抽离 css 到单独文件
+		new ExtractTextPlugin({
+			filename: 'css/[name]-[contenthash:7].css'
+		}),
+		// 生成 hash map
+		new HashMapPlugin({
+			path: path.join(__dirname, '../hash-map'), // map 文件夹路径
+			rotate: 10 // 保留版本记录数
 		})
-	];
+		*/
+    ]
+};
+if(env == 'dev'){
 	const WebpackDevServer = require("Webpack-dev-server");
 	const compiler = webpack(config);
 	const server = new WebpackDevServer(compiler, {
@@ -230,4 +235,6 @@ if(env === 'prd'){
 	});
 	server.listen(8880);
 }
+
+
 module.exports = config;
