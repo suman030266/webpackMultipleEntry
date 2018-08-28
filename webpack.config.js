@@ -6,31 +6,9 @@ const fs = require('fs'),
 	FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
 	CleanWebpackPlugin = require('clean-webpack-plugin'),
 	OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
+	paths = require('./bin/paths'),
 	UginfiyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 // const HashMapPlugin = require('./plugin/hash-map.js');
-
-// paths.js 简化路径
-const join = path.join;
-// const contentBase = process.cwd();
-const contentBase = __dirname,
-	src = join(contentBase, 'src'),
-	paths = {
-		base: contentBase,
-		src,
-		dist: join(contentBase, 'dist'),
-		view: join(contentBase, 'view'),
-		js: join(src, 'js'),
-		page: join(src, 'js/page'),
-		common: join(src, 'common'),
-		components: join(src, 'components'),
-		css: join(src, 'css'),
-		io: join(src, 'io'),
-		mods: join(src, 'mods'),
-		widgets: join(src, 'widgets'),
-		util: join(src, 'util'),
-		vendor: join(src, 'vendor'),
-		plugin: join(src, 'plugin')
-	};
 
 // entry
 const {base,dist,view,js,page,common,components,css,io,mods,widgets,util,vendor,plugin} = paths;
@@ -47,6 +25,7 @@ let cdn = {
     lcdev: '//js.pre.meixincdn.com/m/m/dist/',
     lcvdev: '//js.pre.meixincdn.com/m/m/dist/',
     dev: "//js.pre.meixincdn.com/m/m/dist/",
+    watchBuild: "//js.pre.meixincdn.com/m/m/dist/",
     pre: '//js.pre.meixincdn.com/m/m/dist/',
     prd:"//js.meixincdn.com/m/sfm/dist/",
     huidu:"//js.meixincdn.com/m/sfm/dist/",
@@ -56,7 +35,8 @@ let cdn = {
 const minimist = require('minimist');
 const argv = minimist(process.argv.slice(2));
 let env = argv.env || 'dev';
-
+console.log(env);
+console.log(cdn[env]);
 let config={
     entry,
     output: {
@@ -194,7 +174,7 @@ if(env === 'prd'){
 		// 	rotate: 10 // 保留版本记录数
 		// })
 	];
-}else if(env === 'watchBuild' || env === 'prd'){
+}else if(env === 'watchBuild' || env === 'dev'){
 	config.devtool = 'source-map';
 	config.plugins = [
 		new CleanWebpackPlugin([ dist ]),

@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		talent
+		talent new
 	</div>
 </template>
 
